@@ -1,5 +1,7 @@
 import './App.css'
-import Lesson from './lessons/01-jsx-basic/Example'
+// import Lesson from './lessons/01-jsx-basic/Example'
+// import Lesson from './lessons/02-expression/Example'
+import Lesson from './lessons/03-attribute/Example'
 
 function App() {
 
