@@ -9,7 +9,7 @@
     - 리렌더링되어도 값이 유지됨
 */
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 function Step1() {
     const inputRef = useRef(null)
@@ -28,9 +28,25 @@ function Step1() {
 }
 
 function Step2() {
+    const [stateCount, setStateCount] = useState(0)
+    const [, setTick] = useState(0)
+    const refCount = useRef(0)
+
     return (
         <div className="card">
             <h3>STEP 2. useState vs useRef</h3>
+            <p>state: {stateCount}</p>
+            <p>ref: {refCount.current}</p>
+
+            <div className="btn-row">
+                <button onClick={()=>{ setStateCount(stateCount + 1) }}>
+                    state + 1
+                </button>
+                <button onClick={()=>{ refCount.current += 1; console.log("ref=",refCount.current) }}>
+                    ref + 1
+                </button>
+                <button onClick={()=>{ setTick((t)=>t+1) }}>리렌더링(화면 다시그리기)</button>
+            </div>
         </div>
     )
 }
