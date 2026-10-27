@@ -2,6 +2,11 @@ import { Routes, Route } from 'react-router-dom'
 
 import './App.css'
 import Layout from './components/Layout'
+import DashboardPage from './pages/DashboardPage'
+import TodoListPage from './pages/TodoListPage'
+import TodoDetailPage from './pages/TodoDetailPage'
+import CategoryPage from './pages/CategoryPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
 
@@ -10,11 +15,11 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
 
-          <Route path="/" element={<p>대시보드</p>} />
-          <Route path="/todos" element={<p>todo 목록</p>} />
-          <Route path="/todos/:id" element={<p>todo 상세</p>} />
-          <Route path="/category/:category" element={<p>카테고리별 todo</p>} />
-          <Route path="*" element={<p>Not Found</p>} />
+          <Route path="/" element={<DashboardPage/>} />
+          <Route path="/todos" element={<TodoListPage />} />
+          <Route path="/todos/:id" element={<TodoDetailPage />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="*" element={<NotFoundPage />} />
           
         </Route>
       </Routes>
