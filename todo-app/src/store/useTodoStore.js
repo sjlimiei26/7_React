@@ -49,7 +49,7 @@ export const useTodoStore = create(
         (set) => ({
             todos: initialTodos,
 
-            addTodos: ({ title, memo, category }) => {
+            addTodo: ({ title, memo, category }) => {
                 // 할일 추가
                 set((state)=>({
                         todos: [

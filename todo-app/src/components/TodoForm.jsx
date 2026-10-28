@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { Button, Card } from "../styles/common"
 import { CATEGORIES } from '../constants'
+import { useState } from "react"
+import { useTodoStore } from "../store/useTodoStore"
 
 const Form = styled.form`
   display: flex;
@@ -24,12 +26,31 @@ const Select = styled.select`
   background: #fff;
 `
 function TodoForm() {
+    const [title, setTitle] = useState('')
+    const [memo, setMemo] = useState('')
+    const [category, setCategory] = useState('study')
+
+    const addTodo = useTodoStore((state)=>state.addTodo)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()      // 기본 이벤트 핸들러 동작 x
+
+        if (!title.trim()) return
+
+        addTodo({ title: title.trim(), memo: memo.trim(), category })
+
+        setTitle('')
+        setMemo('')
+    }
+
     return(
         <Card style={{ marginBottom: 20 }}>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Row>
-                    <Input placeholder="할 일을 입력하세요" />
-                    <Select>
+                    <Input placeholder="할 일을 입력하세요"
+                           value={title}
+                           onChange={(e) => setTitle(e.target.value)} />
+                    <Select value={category} onChange={(e) => setCategory(e.target.value)}>
                         {
                             Object.entries(CATEGORIES).map(([key, { label }]) => {
                                 return (
@@ -41,7 +62,9 @@ function TodoForm() {
                         }
                     </Select>
                 </Row>
-                <Input placeholder="메모 작성 (선택)" />
+                <Input placeholder="메모 작성 (선택)"
+                       value={memo}
+                       onChange={(e) => setMemo(e.target.value)} />
                 <Button type="submit">추가</Button>
             </Form>
         </Card>

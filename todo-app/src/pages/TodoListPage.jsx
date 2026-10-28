@@ -32,6 +32,12 @@ function TodoListPage() {
 
     const [filter, setFilter] = useState('all')
 
+    const filteredTodos = todos.filter((todo)=>{
+        if (filter === 'active') return !todo.done
+        if (filter === 'done') return todo.done
+        return true   // filter === 'all'
+    })
+
     return (
         <>
             <PageTitle>할 일 목록</PageTitle>
@@ -53,7 +59,7 @@ function TodoListPage() {
                 }
             </Filters>
 
-            <TodoList todos={todos} />
+            <TodoList todos={filteredTodos} />
         </>
     )
 }
