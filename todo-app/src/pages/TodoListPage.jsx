@@ -4,6 +4,7 @@ import { PageTitle } from '../styles/common'
 import { useState } from 'react'
 import TodoList from '../components/TodoList'
 import TodoForm from '../components/TodoForm'
+import { useTodoStore } from '../store/useTodoStore'
 
 const Filters = styled.div`
   display: flex;
@@ -27,21 +28,9 @@ const FILTERS = [
 ]
 
 function TodoListPage() {
+    const todos = useTodoStore((state) => state.todos)
+
     const [filter, setFilter] = useState('all')
-
-
-    const todos = [
-        {
-            id: 1,
-            title: '리액트 복습',
-            category: '공부'
-        },
-        {
-            id: 2,
-            title: '점심 메뉴 고르기',
-            category: '개인'
-        }
-    ]
 
     return (
         <>

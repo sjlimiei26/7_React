@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { Badge, Button } from "../styles/common"
+import { CATEGORIES } from "../constants"
+import { useTodoStore } from "../store/useTodoStore"
 
 const Item = styled.li`
   display: flex;
@@ -25,14 +27,18 @@ const Title = styled(Link)`
 `
 
 function TodoItem({ todo }) {
+    const toggleTodo = useTodoStore((state) => state.toggleTodo)
+    const deleteTodo = useTodoStore((state) => state.deleteTodo)
     return (
         <Item>
-            <input type="checkbox" />
-            <Title>
-                제목(할일내용)
+            <input type="checkbox"
+                   checked={todo.done}
+                   onChange={() => toggleTodo(todo.id)} />
+            <Title to={`/todos/${todo.id}`} $done={todo.done}>
+                {todo.title}
             </Title>
-            <Badge>뱃지</Badge>
-            <Button $variant="danger">삭제</Button>
+            <Badge>{ CATEGORIES[todo.category]?.label ?? todo.category}</Badge>
+            <Button $variant="danger" onClick={()=> deleteTodo(todo.id)}>삭제</Button>
         </Item>
     )
 }
