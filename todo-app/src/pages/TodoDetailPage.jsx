@@ -146,7 +146,7 @@ function TodoDetailPage() {
 
                     <Field>
                     <Label>생성일</Label>
-                    <div>{todo.createdAt}</div>
+                    <div>{new Date(todo.createdAt).toLocaleString()}</div>
                     </Field>
 
                     <Buttons>
