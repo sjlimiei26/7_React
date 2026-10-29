@@ -45,6 +45,7 @@ function TodoDetailPage() {
   const todo = useTodoStore((state)=>state.todos.find((todo)=>todo.id === id))
   const toggleTodo = useTodoStore((state)=>state.toggleTodo)
   const updateTodo = useTodoStore((state)=>state.updateTodo)
+  const deleteTodo = useTodoStore((state)=>state.deleteTodo)
 
   const [isEditing, setIsEditing] = useState(false)
   const [form, setForm] = useState({ title: '', memo: '', category: 'study'})
@@ -71,6 +72,11 @@ function TodoDetailPage() {
     if (!form.title.trim()) return
     updateTodo(todo.id, form)
     setIsEditing(false)
+  }
+
+  const handleDelete = () => {
+    deleteTodo(todo.id)
+    navigate("/todos")
   }
 
   return (
@@ -151,7 +157,7 @@ function TodoDetailPage() {
                     <Button $variant="ghost" onClick={startEdit}>
                         수정
                     </Button>
-                    <Button $variant="danger">삭제</Button>
+                    <Button $variant="danger" onClick={handleDelete}>삭제</Button>
                     <Button $variant="ghost" onClick={()=>navigate(-1)}>
                         ⬅️ 뒤로
                     </Button>
