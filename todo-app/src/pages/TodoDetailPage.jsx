@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { PageTitle, Card, Badge, Button, EmptyText } from '../styles/common'
 import { useTodoStore } from '../store/useTodoStore'
 import { CATEGORIES } from '../constants'
+import { useState } from 'react'
 
 const Field = styled.div`
   margin-bottom: 16px;
@@ -39,7 +40,14 @@ function TodoDetailPage() {
   // URL의 :id 부분을 추출
   const { id } = useParams()
 
+  const navigate = useNavigate()
+
   const todo = useTodoStore((state)=>state.todos.find((todo)=>todo.id === id))
+  const toggleTodo = useTodoStore((state)=>state.toggleTodo)
+  const updateTodo = useTodoStore((state)=>state.updateTodo)
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [form, setForm] = useState({ title: '', memo: '', category: 'study'})
 
   // 존재하지 않는 id인 경우 표시
   if (!todo) {
@@ -54,47 +62,103 @@ function TodoDetailPage() {
     )
   }
 
+  const startEdit = () => {
+    setIsEditing(true)
+    setForm({ title: todo.title, memo: todo.memo, category: todo.category })
+  }
+
+  const saveEdit = () => {
+    if (!form.title.trim()) return
+    updateTodo(todo.id, form)
+    setIsEditing(false)
+  }
+
   return (
     <>
-      <PageTitle>할 일 상세</PageTitle>
-      <Card>
-        <Field>
-          <Label>제목</Label>
-          <div style={{ fontSize: 20, fontWeight: 600 }}>{todo.title}</div>
-        </Field>
+        <PageTitle>할 일 상세</PageTitle>
+        {
+            
+            isEditing ? (
+                <Card>
+                    <Field>
+                        <Label>제목</Label>
+                        <Input value={form.title} 
+                               onChange={(e)=>setForm({ ...form, title: e.target.value })} />
+                    </Field>
 
-        <Field>
-          <Label>메모</Label>
-          <div>{todo.memo}</div>
-        </Field>
+                    <Field>
+                        <Label>메모</Label>
+                        <Input value={form.memo} 
+                               onChange={(e)=>setForm({ ...form, memo: e.target.value })} />
+                    </Field>
 
-        <Field>
-          <Label>카테고리</Label>
-          {/* 카테고리 페이지로 이동 */}
-          <Link to={`/category/${todo.category}`}>
-            <Badge>{ CATEGORIES[todo.category]?.label ?? todo.category}</Badge>
-          </Link>
-        </Field>
+                    <Field>
+                        <Label>카테고리</Label>
+                        <Select value={form.category} 
+                                onChange={(e) => setForm({...form, category: e.target.value})}>
+                        {
+                            Object.entries(CATEGORIES).map(([key, { label }]) => {
+                                return (
+                                    <option key={key} value={key}>
+                                        {label}
+                                    </option>
+                                )
+                            })
+                        }
+                        </Select>                        
+                    </Field>
 
-        <Field>
-          <Label>상태</Label>
-          <div>{todo.done ? "완료" : "진행중"}</div>
-        </Field>
+                    <Buttons>
+                        <Button onClick={saveEdit}>저장</Button>
+                        <Button $variant="ghost" onClick={()=>setIsEditing(false)}>취소</Button>
+                    </Buttons>
+                </Card>
+            ) : (
+                <Card>
+                    <Field>
+                    <Label>제목</Label>
+                    <div style={{ fontSize: 20, fontWeight: 600 }}>{todo.title}</div>
+                    </Field>
 
-        <Field>
-          <Label>생성일</Label>
-          <div>{todo.createdAt}</div>
-        </Field>
+                    <Field>
+                    <Label>메모</Label>
+                    <div>{todo.memo}</div>
+                    </Field>
 
-        <Buttons>
-          <Button>
-            {todo.done ? "진행중으로 변경" : "완료 처리"}
-          </Button>
-          <Button $variant="ghost">수정</Button>
-          <Button $variant="danger">삭제</Button>
-          <Button $variant="ghost">⬅️ 뒤로</Button>
-        </Buttons>
-      </Card>
+                    <Field>
+                    <Label>카테고리</Label>
+                    {/* 카테고리 페이지로 이동 */}
+                    <Link to={`/category/${todo.category}`}>
+                        <Badge>{ CATEGORIES[todo.category]?.label ?? todo.category}</Badge>
+                    </Link>
+                    </Field>
+
+                    <Field>
+                    <Label>상태</Label>
+                    <div>{todo.done ? "완료" : "진행중"}</div>
+                    </Field>
+
+                    <Field>
+                    <Label>생성일</Label>
+                    <div>{todo.createdAt}</div>
+                    </Field>
+
+                    <Buttons>
+                        {/* 첫번째 버튼 클릭 시, todoStore의 toggleTodo 액션 실행 */}
+                    <Button onClick={()=>toggleTodo(todo.id)}>
+                        {todo.done ? "진행중으로 변경" : "완료 처리"}
+                    </Button>
+                    <Button $variant="ghost" onClick={startEdit}>
+                        수정
+                    </Button>
+                    <Button $variant="danger">삭제</Button>
+                    <Button $variant="ghost" onClick={()=>navigate(-1)}>
+                        ⬅️ 뒤로
+                    </Button>
+                    </Buttons>
+                </Card>
+            )
+        }
     </>
   )
 }
