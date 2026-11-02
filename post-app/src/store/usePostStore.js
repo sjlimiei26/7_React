@@ -23,7 +23,7 @@ import * as postApi from '../api/postApi'
  * - set((s) => ({ ... })) : 이전 상태(s)를 기반으로 갱신할 때 함수 형태 사용
  */
 
-const usePostStore = create((set)=>{
+const usePostStore = create((set) => {
     return (
         {
             posts: [],
@@ -46,20 +46,25 @@ const usePostStore = create((set)=>{
                 // 게시글 추가 
                 const created = await postApi.addPost(data)
 
-                set((s) => ({ posts: [{...created, id: Date.now()}, ...s.posts]}))
-            }, 
+                set((s) => ({ posts: [{ ...created, id: Date.now() }, ...s.posts] }))
+            },
             editPost: async (id, data) => {
                 // 게시글 수정
                 const updated = await postApi.updatePost(id, data)
 
-                set((s)=>(
+                set((s) => (
                     {
-                        posts: s.posts.map((p)=>p.id === id ? updated : p)
+                        posts: s.posts.map((p) => p.id === id ? updated : p)
                     }
                 ))
             },
-            removePost: (id) => {
+            removePost: async (id) => {
                 // 게시글 삭제
+                await postApi.deletePost(id)
+
+                set((s) => ({
+                    posts: s.posts.filter((p) => p.id !== id)
+                }))
             }
         }
     )
