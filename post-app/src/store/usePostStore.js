@@ -1,5 +1,7 @@
+import { create } from 'zustand'
+import * as postApi from '../api/postApi'
 /**
- * 게시글 전역 store
+ * 게시글 전역 store ---> Zustand
  *
  * [정의 순서]
  * 1. 화면에서 공유해야 할 "상태"를 정한다.
@@ -20,3 +22,40 @@
  * - set({ ... })        : 객체를 주면 해당 필드만 병합 갱신
  * - set((s) => ({ ... })) : 이전 상태(s)를 기반으로 갱신할 때 함수 형태 사용
  */
+
+const usePostStore = create((set)=>{
+    return (
+        {
+            posts: [],
+            loading: false,
+            error: null,
+
+            fetchPosts: async () => {
+                // 목록 조회 : posts 교체, loading/error 갱신
+
+                set({ loading: true, error: null })
+
+                try {
+                    const posts = await postApi.fetchPosts()
+                    set({ posts, loading: false })
+                } catch (e) {
+                    set({ error: e.message, loading: false })
+                }
+            },
+            addPost: async (data) => {
+                // 게시글 추가 
+                const created = await postApi.addPost(data)
+
+                set((s) => ({ posts: [{...created, id: Date.now()}, ...s.posts]}))
+            }, 
+            editPost: (id, data) => {
+                // 게시글 수정
+            },
+            removePost: (id) => {
+                // 게시글 삭제
+            }
+        }
+    )
+})
+
+export default usePostStore
