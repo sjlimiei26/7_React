@@ -1,12 +1,16 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { getPost } from "../api/postApi"
 import { useEffect, useState } from "react"
+import usePostStore from "../store/usePostStore"
 
 function EditPostPage() {
+    const navigate = useNavigate()
     const { id } = useParams()
 
     const [post, setPost] = useState(null)
+
+    const editPost = usePostStore((s)=>s.editPost)
 
     useEffect(()=>{
         getPost(id).then((data)=>{
@@ -14,6 +18,15 @@ function EditPostPage() {
             setPost(data)
         })
     }, [])
+
+    const handleClick = async () => {
+        try {
+            await editPost(id, post)
+            navigate('/posts')
+        } catch (e) {
+            alert(`수정 실패 : ${e.message}`)
+        }
+    }
 
 
     return (
@@ -35,7 +48,7 @@ function EditPostPage() {
                    value={post?.body} onChange={(e)=>setPost((s)=>({...s, body: e.target.value}))} />
             <br />
 
-            <button>수정</button>
+            <button onClick={handleClick}>수정</button>
         </>
     )
 }

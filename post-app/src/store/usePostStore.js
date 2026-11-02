@@ -48,8 +48,15 @@ const usePostStore = create((set)=>{
 
                 set((s) => ({ posts: [{...created, id: Date.now()}, ...s.posts]}))
             }, 
-            editPost: (id, data) => {
+            editPost: async (id, data) => {
                 // 게시글 수정
+                const updated = await postApi.updatePost(id, data)
+
+                set((s)=>(
+                    {
+                        posts: s.posts.map((p)=>p.id === id ? updated : p)
+                    }
+                ))
             },
             removePost: (id) => {
                 // 게시글 삭제
