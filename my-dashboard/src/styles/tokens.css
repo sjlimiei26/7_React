@@ -1,0 +1,147 @@
+/* ==========================================================================
+   디자인 토큰 및 전역 스타일 (src/styles/tokens.css)
+   * 학습 포인트: 색상, 간격, 폰트 크기 등을 CSS 변수(Custom Properties)로 한 곳에 모아두면
+     전체 테마의 일관성을 유지하고 나중에 디자인을 수정하기가 훨씬 쉬워집니다.
+   ========================================================================== */
+
+:root {
+  /* 배경 및 표면 색상 */
+  --color-bg-page: #f4f6f9;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #f8fafc;
+  --color-bg-skeleton: #e2e8f0;
+  --color-bg-skeleton-highlight: #f1f5f9;
+
+  /* 텍스트 색상 */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+
+  /* 테두리 및 구분선 색상 */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* 브랜드 및 상태 색상 */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #eff6ff;
+
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+
+  /* 차트 공용 색상 팔레트 (tokens.css와 constants/theme.js에서 일관되게 사용) */
+  --color-chart-1: #2563eb;
+  --color-chart-2: #0d9488;
+  --color-chart-3: #f59e0b;
+  --color-chart-4: #8b5cf6;
+  --color-chart-5: #ec4899;
+  --color-chart-6: #64748b;
+
+  /* 간격 (Spacing) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* 둥근 모서리 (Border Radius) */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  /* 그림자 (Box Shadow) */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.25);
+
+  /* 타이포그래피 */
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Noto Sans KR', sans-serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.375rem;  /* 22px */
+  --font-size-2xl: 1.75rem;  /* 28px */
+
+  /* 레이아웃 크기 */
+  --container-max-width: 1440px;
+  --header-min-height: 76px;
+}
+
+/* 기본 박스 모델 및 리셋 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ==========================================================================
+   react-grid-layout 및 react-resizable 핸들 커스터마이즈
+   AGENTS.md 7번 주의사항: tokens.css 변수를 사용해 리사이즈 핸들 모양을 꾸밉니다.
+   ========================================================================== */
+
+.react-grid-item.react-grid-placeholder {
+  background: var(--color-primary) !important;
+  opacity: 0.14 !important;
+  border-radius: var(--radius-lg);
+}
+
+/* 우하단 리사이즈 핸들을 눈에 잘 띄고 조작하기 쉽게 디자인 토큰으로 스타일링합니다. */
+.react-grid-item > .react-resizable-handle {
+  width: 22px;
+  height: 22px;
+  bottom: 2px;
+  right: 2px;
+  background-image: none;
+  z-index: 10;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  content: '';
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 9px;
+  height: 9px;
+  border-right: 2.5px solid var(--color-primary);
+  border-bottom: 2.5px solid var(--color-primary);
+  border-bottom-right-radius: 2px;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.react-grid-item:hover > .react-resizable-handle::after {
+  opacity: 1;
+  transform: scale(1.1);
+}

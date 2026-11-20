@@ -1,0 +1,120 @@
+.widget {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px 14px;
+  min-width: 310px;
+  min-height: 48px;
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.skeletonGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.skeletonCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.mainInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-right: var(--space-3);
+  border-right: 1px solid var(--color-border);
+}
+
+.icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.primaryText {
+  display: flex;
+  flex-direction: column;
+}
+
+.cityRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.city {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.temp {
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.statusLabel {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.metaList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  white-space: nowrap;
+}
+
+.metaLabel {
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.metaValue {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.refreshBtn {
+  margin-left: auto;
+  padding: 4px 7px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.refreshBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+@media (max-width: 767px) {
+  .widget {
+    width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+  }
+}

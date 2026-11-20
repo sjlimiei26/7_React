@@ -1,0 +1,8 @@
+.gridWrapper {
+  width: 100%;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+}

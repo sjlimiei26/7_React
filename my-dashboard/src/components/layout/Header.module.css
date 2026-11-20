@@ -1,0 +1,110 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.inner {
+  max-width: var(--container-max-width);
+  min-height: var(--header-min-height);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.brandGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.button:hover {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-text-secondary);
+}
+
+.buttonActive {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.weatherSlot {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .inner {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .rightGroup {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

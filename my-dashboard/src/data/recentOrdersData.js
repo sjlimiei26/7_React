@@ -1,0 +1,78 @@
+/**
+ * 최근 주문 목록 테이블용 더미 데이터 (8건)
+ * AGENTS.md 10번 규칙: 실제 개인정보로 보이지 않도록 명백한 가상 고객 이름을 사용합니다.
+ */
+export const recentOrdersData = [
+  {
+    orderId: 'ORD-2026-108',
+    customerName: '가상고객 알파',
+    productName: '울트라북 프로 16인치',
+    category: '노트북/PC',
+    amount: 1890000,
+    status: '배송완료',
+    orderedAt: '2026-11-20 10:15',
+  },
+  {
+    orderId: 'ORD-2026-107',
+    customerName: '가상고객 브라보',
+    productName: '4K UHD 모니터 32인치',
+    category: '모니터',
+    amount: 640000,
+    status: '배송중',
+    orderedAt: '2026-11-20 09:42',
+  },
+  {
+    orderId: 'ORD-2026-106',
+    customerName: '가상고객 찰리',
+    productName: '무선 기계식 키보드 K8',
+    category: '키보드/마우스',
+    amount: 145000,
+    status: '배송완료',
+    orderedAt: '2026-11-19 18:20',
+  },
+  {
+    orderId: 'ORD-2026-105',
+    customerName: '가상고객 델타',
+    productName: '노이즈캔슬링 헤드폰 H9',
+    category: '오디오/헤드셋',
+    amount: 329000,
+    status: '결제완료',
+    orderedAt: '2026-11-19 16:05',
+  },
+  {
+    orderId: 'ORD-2026-104',
+    customerName: '가상고객 에코',
+    productName: '스마트 태블릿 에어 11',
+    category: '태블릿',
+    amount: 820000,
+    status: '배송중',
+    orderedAt: '2026-11-19 14:11',
+  },
+  {
+    orderId: 'ORD-2026-103',
+    customerName: '가상고객 폭스트롯',
+    productName: '버티컬 무선 마우스 M5',
+    category: '키보드/마우스',
+    amount: 79000,
+    status: '배송완료',
+    orderedAt: '2026-11-18 21:30',
+  },
+  {
+    orderId: 'ORD-2026-102',
+    customerName: '가상고객 골프',
+    productName: '스마트 조명 허브 세트',
+    category: '스마트홈',
+    amount: 198000,
+    status: '배송완료',
+    orderedAt: '2026-11-18 15:48',
+  },
+  {
+    orderId: 'ORD-2026-101',
+    customerName: '가상고객 호텔',
+    productName: '게이밍 모니터 27인치',
+    category: '모니터',
+    amount: 450000,
+    status: '결제완료',
+    orderedAt: '2026-11-18 11:09',
+  },
+];

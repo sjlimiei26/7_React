@@ -1,0 +1,72 @@
+.tableWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+  text-align: left;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border-strong);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+.orderId {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.amount {
+  font-weight: 700;
+  text-align: right;
+}
+
+.alignRight {
+  text-align: right !important;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.statusCompleted {
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.statusShipping {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.statusPaid {
+  background-color: var(--color-warning-soft);
+  color: var(--color-warning);
+}
